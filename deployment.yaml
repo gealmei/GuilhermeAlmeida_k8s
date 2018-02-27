@@ -1,0 +1,70 @@
+apiVersion: extensions/v1beta1
+kind: Deployment
+metadata:
+  annotations:
+    deployment.kubernetes.io/revision: "1"
+  creationTimestamp: 2018-02-27T17:13:28Z
+  generation: 2
+  labels:
+    run: nginx
+  name: nginx-exec1
+  namespace: default
+  resourceVersion: "774520"
+  selfLink: /apis/extensions/v1beta1/namespaces/default/deployments/nginx
+  uid: 87211452-1be1-11e8-b732-005056b248c1
+spec:
+  replicas: 5
+  selector:
+    matchLabels:
+      run: nginx
+  strategy:
+    rollingUpdate:
+      maxSurge: 1
+      maxUnavailable: 1
+    type: RollingUpdate
+  template:
+    metadata:
+      creationTimestamp: null
+      labels:
+        run: nginx
+        app: exec1
+        env: prod
+    spec:
+      containers:
+      - image: nginx
+        imagePullPolicy: Always
+        name: nginx
+        volumeMounts:
+        - name: nfs-vol-exec1
+          mountPath: /usr/share/nginx/html
+        ports:
+        - containerPort: 80
+          protocol: TCP
+        resources: {}
+        terminationMessagePath: /dev/termination-log
+        terminationMessagePolicy: File
+      nodeSelector:
+        dc: UK
+      dnsPolicy: ClusterFirst
+      restartPolicy: Always
+      schedulerName: default-scheduler
+      securityContext: {}
+      terminationGracePeriodSeconds: 30
+      volumes:
+      - name: nfs-vol-exec1
+        persistentVolumeClaim:
+          claimName: exec1-pvc
+status:
+  availableReplicas: 1
+  conditions:
+  - lastTransitionTime: 2018-02-27T17:16:32Z
+    lastUpdateTime: 2018-02-27T17:16:32Z
+    message: Deployment does not have minimum availability.
+    reason: MinimumReplicasUnavailable
+    status: "False"
+    type: Available
+  observedGeneration: 2
+  readyReplicas: 1
+  replicas: 5
+  unavailableReplicas: 4
+  updatedReplicas: 5

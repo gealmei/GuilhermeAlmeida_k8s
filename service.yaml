@@ -1,0 +1,25 @@
+apiVersion: v1
+kind: Service
+metadata:
+  creationTimestamp: 2018-02-27T17:41:45Z
+  labels:
+    run: nginx
+  name: nginx-exec1
+  namespace: default
+  resourceVersion: "776548"
+  selfLink: /api/v1/namespaces/default/services/nginx-exec1
+  uid: 7ab4971a-1be5-11e8-b732-005056b248c1
+spec:
+  clusterIP: 10.108.5.142
+  externalTrafficPolicy: Cluster
+  ports:
+  - nodePort: 31212
+    port: 80
+    protocol: TCP
+    targetPort: 80
+  selector:
+    run: nginx
+  sessionAffinity: None
+  type: NodePort
+status:
+  loadBalancer: {}

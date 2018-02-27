@@ -1,0 +1,16 @@
+kind: PersistentVolume
+apiVersion: v1
+metadata:
+  name: k8s-vol
+  labels:
+    type: local
+spec:
+  capacity:
+    storage: 150M
+  accessModes:
+  - ReadWriteMany
+  persistentVolumeReclaimPolicy: Retain
+  nfs:
+    path: /k8s
+    server: 10.64.226.255
+    readOnly: false
